@@ -2,8 +2,9 @@ from django.contrib import admin
 from electronic.models import Supplier, NetworkElement, Product
 
 
+@admin.register(NetworkElement)
 class NetworkElementAdmin(admin.ModelAdmin):
-    list_display = ('name', 'city', 'supplier', 'debt')
+    list_display = ('name', 'email', 'country', 'city', 'supplier', 'debt', 'created_at')
     list_filter = ('city',)
 
     def clear_debt(self, request, queryset):
@@ -14,6 +15,11 @@ class NetworkElementAdmin(admin.ModelAdmin):
     actions = [clear_debt]
 
 
-admin.site.register(Supplier)
-admin.site.register(NetworkElement, NetworkElementAdmin)
-admin.site.register(Product)
+@admin.register(Supplier)
+class SupplierAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'country', 'city', 'street', 'house_number')
+
+
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ('network_element', 'name', 'model', 'release_date',)

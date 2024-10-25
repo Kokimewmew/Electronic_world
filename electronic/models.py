@@ -30,6 +30,7 @@ class NetworkElement(models.Model):
 
     def __str__(self):
         return self.name
+
     class Meta:
         verbose_name = 'Звено сети'
         verbose_name_plural = 'Звено сети'

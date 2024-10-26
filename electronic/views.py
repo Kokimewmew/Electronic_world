@@ -5,10 +5,12 @@ from rest_framework.permissions import IsAuthenticated
 
 from users.permissions import IsOwner, IsModer
 from .models import Supplier
+from .serializers import SupplierSerializer
 
 
 class SupplierViewSet(viewsets.ModelViewSet):
     queryset = Supplier.objects.all()
+    serializer_class = SupplierSerializer
     filter_backends = [SearchFilter, OrderingFilter]
     search_fields = ['name', 'city', 'country']
     ordering_fields = ['name', 'created_at']
@@ -26,20 +28,23 @@ class SupplierViewSet(viewsets.ModelViewSet):
 
 class SupplierCreateAPIView(CreateAPIView):
     queryset = Supplier.objects.all()
-
-    permission_classes = (~IsModer, IsAuthenticated)
+    serializer_class = SupplierSerializer
+    #permission_classes = (~IsModer, IsAuthenticated)
 
 
 class SupplierRetrieveAPIView(RetrieveAPIView):
     queryset = Supplier.objects.all()
-    permission_classes = (IsAuthenticated, IsOwner | IsModer)
+    serializer_class = SupplierSerializer
+    #permission_classes = (IsAuthenticated, IsOwner | IsModer)
 
 
 class SupplierUpdateAPIView(UpdateAPIView):
     queryset = Supplier.objects.all()
-    permission_classes = (IsAuthenticated, IsOwner | IsModer)
+    serializer_class = SupplierSerializer
+    #permission_classes = (IsAuthenticated, IsOwner | IsModer)
 
 
 class SupplierDestroyAPIView(DestroyAPIView):
     queryset = Supplier.objects.all()
-    permission_classes = (IsAuthenticated, IsOwner)
+    serializer_class = SupplierSerializer
+    #permission_classes = (IsAuthenticated, IsOwner)
